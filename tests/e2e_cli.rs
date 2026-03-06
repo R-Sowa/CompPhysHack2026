@@ -16,7 +16,9 @@ fn test_cli_accepts_single_expression_from_stdin() {
         .write_all(b"X*Y\nexit\n")
         .expect("stdin write should succeed");
 
-    let output = child.wait_with_output().expect("binary should exit cleanly");
+    let output = child
+        .wait_with_output()
+        .expect("binary should exit cleanly");
 
     assert!(output.status.success());
     assert!(String::from_utf8_lossy(&output.stdout).contains("result: iZ"));

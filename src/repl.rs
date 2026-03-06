@@ -1,5 +1,5 @@
 use crate::ast::Expr;
-use crate::parser::{parse_expr, ParseError};
+use crate::parser::{ParseError, parse_expr};
 use crate::scalar::Scalar;
 use crate::simplifier::simplify;
 use std::error::Error;
