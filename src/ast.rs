@@ -51,7 +51,10 @@ impl fmt::Display for Expr {
             }
             Expr::Mul(factors) => {
                 for factor in factors {
-                    write!(f, "{factor}")?;
+                    match factor {
+                        Expr::Add(_) => write!(f, "({factor})")?,
+                        _ => write!(f, "{factor}")?,
+                    }
                 }
                 Ok(())
             }
