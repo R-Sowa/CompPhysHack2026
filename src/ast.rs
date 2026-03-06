@@ -38,10 +38,14 @@ impl fmt::Display for Expr {
             Expr::Sym(pauli) => write!(f, "{pauli}"),
             Expr::Add(terms) => {
                 for (index, term) in terms.iter().enumerate() {
-                    if index > 0 {
-                        write!(f, " + ")?;
+                    let rendered = term.to_string();
+                    if index == 0 {
+                        write!(f, "{rendered}")?;
+                    } else if let Some(rest) = rendered.strip_prefix('-') {
+                        write!(f, " - {rest}")?;
+                    } else {
+                        write!(f, " + {rendered}")?;
                     }
-                    write!(f, "{term}")?;
                 }
                 Ok(())
             }
