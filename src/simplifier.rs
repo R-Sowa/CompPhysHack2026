@@ -99,7 +99,17 @@ fn normalize(expr: Expr) -> LinearExpr {
             }
             result
         }
-        Expr::Commutator(_, _) => todo!("commutator support is implemented in the next TDD step"),
+        Expr::Commutator(lhs, rhs) => {
+            let left = normalize(Expr::Mul(vec![(*lhs).clone(), (*rhs).clone()]));
+            let right = normalize(Expr::Mul(vec![*rhs, *lhs]));
+            let mut result = left.clone();
+            let mut negated_right = LinearExpr::zero();
+            for (slot, coeff) in negated_right.coeffs.iter_mut().zip(right.coeffs.iter()) {
+                *slot = -*coeff;
+            }
+            result.add_assign(&negated_right);
+            result
+        }
     }
 }
 
