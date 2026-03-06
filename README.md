@@ -1,5 +1,7 @@
 # Pauli REPL
 
+Project repository for CPH2026.
+
 Small Rust CLI/REPL for symbolic simplification of 2x2 Pauli algebra.
 
 ## Design Docs
